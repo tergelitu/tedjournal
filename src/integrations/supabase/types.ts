@@ -14,7 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trades: {
+        Row: {
+          created_at: string
+          direction: string
+          id: string
+          lot_size: number
+          net_pip: number
+          notes: string | null
+          pair: string
+          result: string
+          screenshot_path: string | null
+          session: string
+          sl_pip: number
+          tp_pip: number
+          traded_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          direction?: string
+          id?: string
+          lot_size?: number
+          net_pip?: number
+          notes?: string | null
+          pair: string
+          result?: string
+          screenshot_path?: string | null
+          session?: string
+          sl_pip?: number
+          tp_pip?: number
+          traded_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          direction?: string
+          id?: string
+          lot_size?: number
+          net_pip?: number
+          notes?: string | null
+          pair?: string
+          result?: string
+          screenshot_path?: string | null
+          session?: string
+          sl_pip?: number
+          tp_pip?: number
+          traded_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
