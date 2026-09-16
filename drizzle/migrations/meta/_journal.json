@@ -8,6 +8,13 @@
       "when": 1789518703318,
       "tag": "0000_create_trading_journal",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789518734681,
+      "tag": "0001_trade_screenshot_storage_policies",
+      "breakpoints": true
     }
   ]
 }
