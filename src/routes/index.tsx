@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Activity, CalendarDays, ImageIcon, LineChart, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -10,28 +10,25 @@ import { lovable } from "@/integrations/lovable/index";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PipDesk — Sign in to your pip-first trading journal" },
+      { title: "TedJournal — Pip-First Trading Journal" },
       {
         name: "description",
         content:
           "Sign in with Google to log trade screenshots and track win rate, net pips and pair stats.",
       },
-      { property: "og:title", content: "PipDesk — Sign in to your trading journal" },
+      { property: "og:title", content: "TedJournal — Pip-First Trading Journal" },
       {
         property: "og:description",
         content: "Screenshot-first trade logging with pip-focused stats, calendar and dashboard.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/" }],
   }),
   component: SignInPage,
 });
-
-const highlights = [
-  { icon: ImageIcon, title: "Screenshot first", copy: "Every entry starts with the chart image." },
-  { icon: LineChart, title: "Pip-first stats", copy: "Net pips lead, dollars stay secondary." },
-  { icon: Activity, title: "Win rate by pair", copy: "See which pairs actually pay you." },
-  { icon: CalendarDays, title: "Calendar view", copy: "Daily count, win rate and net pips." },
-];
 
 function SignInPage() {
   const navigate = useNavigate();
@@ -65,42 +62,20 @@ function SignInPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-16">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl" />
-      <div className="relative w-full max-w-3xl">
-        <div className="text-center">
-          <p className="num text-xs uppercase tracking-[0.35em] text-primary">pipdesk</p>
-          <h1 className="mt-5 text-4xl font-semibold sm:text-5xl">
-            Journal your trades in <span className="text-gradient-cyan">pips</span>, not hype.
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
-            Upload the screenshot, log the setup, and let the dashboard and calendar show your real
-            edge — pair by pair, week by week.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <Button size="lg" onClick={signIn} disabled={loading || checking} className="px-8">
-              {loading || checking ? (
-                <Loader2 className="mr-2 size-4 animate-spin" />
-              ) : (
-                <GoogleMark />
-              )}
-              Continue with Google
-            </Button>
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Your name, email and every trade stay saved for the next time you sign in.
-          </p>
+    <main className="flex min-h-screen items-center justify-center px-5 py-12">
+      <div className="w-full max-w-md text-center">
+        <p className="num text-xs uppercase tracking-[0.3em] text-primary">Trade with clarity</p>
+        <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">TedJournal</h1>
+        <p className="mx-auto mt-4 max-w-sm text-sm leading-6 text-muted-foreground sm:text-base">
+          A private, pip-first record of every setup, result, and lesson.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Button size="lg" onClick={signIn} disabled={loading || checking} className="min-w-56">
+            {loading || checking ? <Loader2 className="animate-spin" /> : <GoogleMark />}
+            Continue with Google
+          </Button>
         </div>
-
-        <div className="mt-14 grid gap-3 sm:grid-cols-2">
-          {highlights.map((item) => (
-            <div key={item.title} className="surface-panel p-5">
-              <item.icon className="size-5 text-primary" />
-              <h2 className="mt-3 text-base font-semibold">{item.title}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{item.copy}</p>
-            </div>
-          ))}
-        </div>
+        <p className="mt-4 text-xs text-muted-foreground">Your journal stays with your account.</p>
       </div>
     </main>
   );

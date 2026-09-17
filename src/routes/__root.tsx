@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PipDesk — Pip-First Trading Journal" },
+      { title: "TedJournal — Pip-First Trading Journal" },
       {
         name: "description",
         content:
           "Log trades with screenshots and track win rate, net pips and pair performance in a pip-first journal.",
       },
-      { property: "og:title", content: "PipDesk — Pip-First Trading Journal" },
+      { property: "og:title", content: "TedJournal — Pip-First Trading Journal" },
       {
         property: "og:description",
         content: "Screenshot-first trade logging with pip-focused stats, calendar and dashboard.",
