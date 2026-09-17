@@ -18,17 +18,21 @@ import {
 export const Route = createFileRoute("/_authenticated/log")({
   head: () => ({
     meta: [
-      { title: "Screenshot log — PipDesk" },
+      { title: "Screenshot Log — TedJournal" },
       {
         name: "description",
         content: "Every logged trade with its chart screenshot, pips, lot size and result.",
       },
-      { property: "og:title", content: "Screenshot log — PipDesk" },
+      { property: "og:title", content: "Screenshot Log — TedJournal" },
       {
         property: "og:description",
         content: "Browse your trade screenshots with pair, session, pips and outcome.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/log" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/log" }],
   }),
   component: LogPage,
 });

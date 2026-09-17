@@ -27,17 +27,21 @@ import {
 export const Route = createFileRoute("/_authenticated/journal")({
   head: () => ({
     meta: [
-      { title: "Log a trade — PipDesk" },
+      { title: "Log a Trade — TedJournal" },
       {
         name: "description",
         content: "Upload your trade screenshot, then log pair, direction, session, pips and result.",
       },
-      { property: "og:title", content: "Log a trade — PipDesk" },
+      { property: "og:title", content: "Log a Trade — TedJournal" },
       {
         property: "og:description",
         content: "Screenshot first, then pair, session, TP/SL pips, lot size and result.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/journal" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/journal" }],
   }),
   component: NewTradePage,
 });

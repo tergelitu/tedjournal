@@ -40,7 +40,7 @@ function AppLayout() {
       <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
           <Link to="/journal" className="num text-sm uppercase tracking-[0.3em] text-primary">
-            pipdesk
+            tedjournal
           </Link>
           <nav className="order-3 flex w-full gap-1 overflow-x-auto sm:order-none sm:w-auto">
             {nav.map((item) => (

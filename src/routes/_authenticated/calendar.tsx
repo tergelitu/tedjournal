@@ -19,17 +19,21 @@ import { computeStats, formatPip, useTrades, type Trade } from "@/lib/trades";
 export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({
     meta: [
-      { title: "Calendar — PipDesk" },
+      { title: "Trading Calendar — TedJournal" },
       {
         name: "description",
         content: "Daily trade count, win rate, net pips and estimated dollars month by month.",
       },
-      { property: "og:title", content: "Calendar — PipDesk" },
+      { property: "og:title", content: "Trading Calendar — TedJournal" },
       {
         property: "og:description",
         content: "See each trading day's count, win rate and net pips at a glance.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/calendar" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/calendar" }],
   }),
   component: CalendarPage,
 });

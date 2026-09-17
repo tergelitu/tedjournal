@@ -28,17 +28,21 @@ import {
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — PipDesk" },
+      { title: "Trading Dashboard — TedJournal" },
       {
         name: "description",
         content: "Win rate, net pips, win rate by pair and result split for weekly to all-time.",
       },
-      { property: "og:title", content: "Dashboard — PipDesk" },
+      { property: "og:title", content: "Trading Dashboard — TedJournal" },
       {
         property: "og:description",
         content: "Pip-first performance dashboard: win rate, net pips and pair breakdown.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/dashboard" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/dashboard" }],
   }),
   component: DashboardPage,
 });
