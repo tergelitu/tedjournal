@@ -110,6 +110,7 @@ export function useProfile() {
       return {
         id: user.id,
         email: data?.email ?? user.email ?? "",
+        has_nickname: Boolean(data?.display_name?.trim()),
         display_name:
           data?.display_name ??
           (user.user_metadata?.["full_name"] as string | undefined) ??
