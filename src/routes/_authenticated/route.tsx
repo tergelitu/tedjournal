@@ -4,6 +4,7 @@ import { CalendarDays, ImageIcon, LayoutDashboard, LogOut, PlusCircle } from "lu
 
 import { supabase } from "@/integrations/supabase/client";
 import { useProfile } from "@/lib/trades";
+import { NicknameDialog } from "@/components/NicknameDialog";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated")({
