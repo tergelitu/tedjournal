@@ -43,6 +43,7 @@ export type Database = {
       }
       trades: {
         Row: {
+          actual_pip: number | null
           created_at: string
           direction: string
           id: string
@@ -53,12 +54,14 @@ export type Database = {
           result: string
           screenshot_path: string | null
           session: string
+          setup_tag: string | null
           sl_pip: number
           tp_pip: number
           traded_at: string
           user_id: string
         }
         Insert: {
+          actual_pip?: number | null
           created_at?: string
           direction?: string
           id?: string
@@ -69,12 +72,14 @@ export type Database = {
           result?: string
           screenshot_path?: string | null
           session?: string
+          setup_tag?: string | null
           sl_pip?: number
           tp_pip?: number
           traded_at?: string
           user_id: string
         }
         Update: {
+          actual_pip?: number | null
           created_at?: string
           direction?: string
           id?: string
@@ -85,6 +90,7 @@ export type Database = {
           result?: string
           screenshot_path?: string | null
           session?: string
+          setup_tag?: string | null
           sl_pip?: number
           tp_pip?: number
           traded_at?: string
