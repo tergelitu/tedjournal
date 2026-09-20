@@ -19,6 +19,8 @@ export interface Trade {
   lot_size: number;
   result: string;
   net_pip: number;
+  actual_pip: number | null;
+  setup_tag: string | null;
   notes: string | null;
   traded_at: string;
   created_at: string;
@@ -131,6 +133,8 @@ export interface NewTradeInput {
   sl_pip: number;
   lot_size: number;
   result: TradeResult;
+  actual_pip: number | null;
+  setup_tag: string;
   traded_at: string;
   notes: string;
 }
@@ -164,6 +168,8 @@ export function useCreateTrade() {
         sl_pip: input.sl_pip,
         lot_size: input.lot_size,
         result: input.result,
+        actual_pip: input.actual_pip,
+        setup_tag: input.setup_tag.trim() || null,
         traded_at: new Date(input.traded_at).toISOString(),
         notes: input.notes || null,
       });
@@ -241,6 +247,10 @@ export interface Stats {
   netDollars: number;
   avgWinPip: number;
   avgLossPip: number;
+  profitFactor: number;
+  expectancy: number;
+  payoffRatio: number;
+  maxDrawdown: number;
 }
 
 export function computeStats(trades: Trade[]): Stats {
@@ -253,6 +263,17 @@ export function computeStats(trades: Trade[]): Stats {
     (sum, t) => sum + estimateDollars(Number(t.net_pip), Number(t.lot_size)),
     0,
   );
+  const positivePips = trades
+    .map((trade) => Number(trade.net_pip))
+    .filter((pips) => pips > 0);
+  const negativePips = trades
+    .map((trade) => Number(trade.net_pip))
+    .filter((pips) => pips < 0);
+  const grossWinPips = positivePips.reduce((sum, pips) => sum + pips, 0);
+  const grossLossPips = Math.abs(negativePips.reduce((sum, pips) => sum + pips, 0));
+  const averageWin = positivePips.length ? grossWinPips / positivePips.length : 0;
+  const averageLoss = negativePips.length ? grossLossPips / negativePips.length : 0;
+  const drawdown = drawdownSeries(trades);
   return {
     count: trades.length,
     wins: wins.length,
@@ -267,7 +288,37 @@ export function computeStats(trades: Trade[]): Stats {
     avgLossPip: losses.length
       ? losses.reduce((s, t) => s + Number(t.net_pip), 0) / losses.length
       : 0,
+    profitFactor: grossLossPips ? grossWinPips / grossLossPips : grossWinPips ? Infinity : 0,
+    expectancy: trades.length ? netPip / trades.length : 0,
+    payoffRatio: averageLoss ? averageWin / averageLoss : averageWin ? Infinity : 0,
+    maxDrawdown: Math.abs(Math.min(0, ...drawdown.map((point) => point.drawdown))),
   };
+}
+
+export interface DrawdownPoint {
+  trade: number;
+  cumulative: number;
+  runningMax: number;
+  drawdown: number;
+}
+
+export function drawdownSeries(trades: Trade[]): DrawdownPoint[] {
+  let cumulative = 0;
+  let runningMax = 0;
+
+  return trades
+    .slice()
+    .sort((a, b) => +new Date(a.traded_at) - +new Date(b.traded_at))
+    .map((item, index) => {
+      cumulative += Number(item.net_pip);
+      runningMax = Math.max(runningMax, cumulative);
+      return {
+        trade: index + 1,
+        cumulative: Math.round(cumulative * 10) / 10,
+        runningMax: Math.round(runningMax * 10) / 10,
+        drawdown: Math.round((cumulative - runningMax) * 10) / 10,
+      };
+    });
 }
 
 export function statsByPair(trades: Trade[]) {

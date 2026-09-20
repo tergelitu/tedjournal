@@ -118,6 +118,7 @@ function LogPage() {
                     <Badge variant="secondary">{trade.direction}</Badge>
                     <Badge variant="secondary">{trade.session.replace("-", " ")}</Badge>
                     <Badge variant="secondary">{Number(trade.lot_size)} lot</Badge>
+                    {trade.setup_tag ? <Badge variant="outline">{trade.setup_tag}</Badge> : null}
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <div>
@@ -137,6 +138,11 @@ function LogPage() {
                       </p>
                     </div>
                   </div>
+                  {trade.actual_pip !== null ? (
+                    <p className="text-xs text-muted-foreground">
+                      Actual result: <span className="num text-foreground">{formatPip(Number(trade.actual_pip))}p</span>
+                    </p>
+                  ) : null}
                   {trade.notes ? (
                     <p className="text-xs text-muted-foreground">{trade.notes}</p>
                   ) : null}
