@@ -185,7 +185,7 @@ function DashboardPage() {
               label="Max drawdown"
               value={`${stats.maxDrawdown.toFixed(1)}p`}
               sub="Largest peak-to-trough decline"
-              accent="down"
+              {...(stats.maxDrawdown > 0 ? { accent: "down" as const } : {})}
             />
           </div>
 
@@ -251,7 +251,9 @@ function DashboardPage() {
               <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Drawdown over time
               </h2>
-              <span className="num text-xs text-destructive">Max −{stats.maxDrawdown.toFixed(1)}p</span>
+              <span className="num text-xs text-destructive">
+                Max {stats.maxDrawdown > 0 ? "−" : ""}{stats.maxDrawdown.toFixed(1)}p
+              </span>
             </div>
             <div className="mt-4 h-64">
               <ResponsiveContainer width="100%" height="100%">
