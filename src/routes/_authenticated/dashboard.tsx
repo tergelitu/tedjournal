@@ -185,7 +185,7 @@ function DashboardPage() {
               label="Max drawdown"
               value={`${stats.maxDrawdown.toFixed(1)}p`}
               sub="Largest peak-to-trough decline"
-              accent={stats.maxDrawdown > 0 ? "down" : undefined}
+              accent="down"
             />
           </div>
 
