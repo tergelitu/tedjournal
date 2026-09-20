@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   computeStats,
+  drawdownSeries,
   filterByRange,
   formatPip,
   statsByPair,
@@ -110,17 +111,20 @@ function DashboardPage() {
         return { idx: i + 1, pips: Math.round(running * 10) / 10 };
       });
   }, [scoped]);
+  const drawdown = useMemo(() => drawdownSeries(scoped), [scoped]);
+
+  const ratio = (value: number) => (Number.isFinite(value) ? value.toFixed(2) : "∞");
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border/70 pb-5">
         <div>
           <h1 className="text-2xl font-semibold sm:text-3xl">Dashboard</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Pips lead the scoreboard — dollars are only an estimate.
           </p>
         </div>
-        <div className="flex gap-1 rounded-xl border border-border bg-secondary/40 p-1">
+        <div className="flex max-w-full gap-1 overflow-x-auto rounded-lg border border-border bg-secondary/40 p-1">
           {ranges.map((r) => (
             <Button
               key={r.value}
@@ -160,9 +164,32 @@ function DashboardPage() {
               value={`${stats.netDollars >= 0 ? "+" : "-"}$${Math.abs(stats.netDollars).toFixed(0)}`}
               sub="Secondary — pips first"
             />
+            <Stat
+              label="Profit factor"
+              value={ratio(stats.profitFactor)}
+              sub="Gross wins ÷ gross losses"
+              accent={stats.profitFactor >= 1 ? "up" : "down"}
+            />
+            <Stat
+              label="Expectancy / trade"
+              value={`${formatPip(stats.expectancy)}p`}
+              sub="Average outcome"
+              accent={stats.expectancy >= 0 ? "up" : "down"}
+            />
+            <Stat
+              label="Avg win ÷ loss"
+              value={ratio(stats.payoffRatio)}
+              sub="Payoff ratio"
+            />
+            <Stat
+              label="Max drawdown"
+              value={`${stats.maxDrawdown.toFixed(1)}p`}
+              sub="Largest peak-to-trough decline"
+              accent={stats.maxDrawdown > 0 ? "down" : undefined}
+            />
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
             <section className="surface-panel p-5">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Result split
@@ -218,6 +245,39 @@ function DashboardPage() {
               </div>
             </section>
           </div>
+
+          <section className="surface-panel p-5">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                Drawdown over time
+              </h2>
+              <span className="num text-xs text-destructive">Max −{stats.maxDrawdown.toFixed(1)}p</span>
+            </div>
+            <div className="mt-4 h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={drawdown}>
+                  <XAxis dataKey="trade" stroke="var(--color-muted-foreground)" fontSize={12} />
+                  <YAxis stroke="var(--color-muted-foreground)" fontSize={12} />
+                  <Tooltip
+                    formatter={(value: number) => `${Number(value).toFixed(1)} pips`}
+                    contentStyle={{
+                      background: "var(--color-popover)",
+                      border: "1px solid var(--color-border)",
+                      borderRadius: 8,
+                      color: "var(--color-popover-foreground)",
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="drawdown"
+                    stroke="var(--color-chart-3)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
 
           <section className="surface-panel p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">

@@ -66,6 +66,8 @@ function NewTradePage() {
   const [tpPip, setTpPip] = useState("");
   const [slPip, setSlPip] = useState("");
   const [lotSize, setLotSize] = useState("");
+  const [setupTag, setSetupTag] = useState("");
+  const [actualPip, setActualPip] = useState("");
   const [tradedAt, setTradedAt] = useState(localNow());
   const [notes, setNotes] = useState("");
 
@@ -85,6 +87,8 @@ function NewTradePage() {
     setTpPip("");
     setSlPip("");
     setLotSize("");
+    setSetupTag("");
+    setActualPip("");
     setNotes("");
     setTradedAt(localNow());
   }
@@ -113,6 +117,8 @@ function NewTradePage() {
         sl_pip: Number(slPip) || 0,
         lot_size: Number(lotSize) || 0,
         result,
+        setup_tag: setupTag,
+        actual_pip: actualPip === "" ? null : Number(actualPip),
         traded_at: tradedAt,
         notes,
       });
@@ -285,6 +291,28 @@ function NewTradePage() {
                     </Button>
                   ))}
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="setupTag">Setup / strategy (optional)</Label>
+                <Input
+                  id="setupTag"
+                  placeholder="e.g. breakout"
+                  value={setupTag}
+                  onChange={(e) => setSetupTag(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="actualPip">Actual pips (optional)</Label>
+                <Input
+                  id="actualPip"
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  placeholder="e.g. +86 or -32"
+                  value={actualPip}
+                  onChange={(e) => setActualPip(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">Overrides the TP or SL value.</p>
               </div>
             </div>
             <div className="space-y-2">
