@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarDays, ImageIcon, LayoutDashboard, LogOut, PlusCircle, ListOrdered } from "lucide-react";
+import { CalendarDays, ChartColumn, Images, LogOut, ListChecks, Plus } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useProfile } from "@/lib/trades";
@@ -18,11 +18,11 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 const nav = [
-  { to: "/journal", label: "New trade", icon: PlusCircle },
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/log", label: "Screenshot log", icon: ImageIcon },
+  { to: "/rules", label: "My rules", icon: ListChecks },
   { to: "/calendar", label: "Calendar", icon: CalendarDays },
-  { to: "/rules", label: "My rules", icon: ListOrdered },
+  { to: "/journal", label: "New trade", icon: Plus },
+  { to: "/dashboard", label: "Dashboard", icon: ChartColumn },
+  { to: "/log", label: "Screenshot log", icon: Images },
 ] as const;
 
 function AppLayout() {
@@ -49,9 +49,9 @@ function AppLayout() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground data-[status=active]:bg-secondary data-[status=active]:text-primary"
+                className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground data-[status=active]:bg-primary/10 data-[status=active]:text-primary data-[status=active]:shadow-[inset_0_0_0_1px_theme(colors.primary/25%)]"
               >
-                <item.icon className="size-4" />
+                <item.icon className="size-4" strokeWidth={1.75} />
                 {item.label}
               </Link>
             ))}

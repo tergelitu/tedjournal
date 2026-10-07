@@ -28,10 +28,9 @@ function RulesPage() {
   const options = rulesQueryOptions(user.id);
   const { data: savedRules } = useSuspenseQuery(options);
   const [rules, setRules] = useState(() =>
-    (savedRules.length ? savedRules : Array.from({ length: 5 }, () => ""))
+    (savedRules.length ? savedRules : Array.from({ length: 3 }, () => ""))
       .map((text, index) => ({ id: index, text })),
   );
-  const [nextId, setNextId] = useState(rules.length);
   const normalized = rules.map((rule) => rule.text.trim()).filter(Boolean);
   const dirty = JSON.stringify(normalized) !== JSON.stringify(savedRules);
   const save = useMutation({
@@ -86,8 +85,10 @@ function RulesPage() {
         ))}
       </ol>
       <Button variant="outline" disabled={save.isPending} onClick={() => {
-        setRules((current) => [...current, { id: nextId, text: "" }]);
-        setNextId((current) => current + 1);
+        setRules((current) => [
+          ...current,
+          { id: Math.max(-1, ...current.map((item) => item.id)) + 1, text: "" },
+        ]);
       }}><Plus />Add rule</Button>
     </div>
   );
