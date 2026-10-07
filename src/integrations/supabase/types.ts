@@ -98,6 +98,24 @@ export type Database = {
         }
         Relationships: []
       }
+      trading_rules: {
+        Row: {
+          rules: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          rules?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          rules?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
