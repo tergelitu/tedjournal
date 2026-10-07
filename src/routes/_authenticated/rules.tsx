@@ -85,8 +85,10 @@ function RulesPage() {
         ))}
       </ol>
       <Button variant="outline" disabled={save.isPending} onClick={() => {
-        setRules((current) => [...current, { id: nextId, text: "" }]);
-        setNextId((current) => current + 1);
+        setRules((current) => [
+          ...current,
+          { id: Math.max(-1, ...current.map((item) => item.id)) + 1, text: "" },
+        ]);
       }}><Plus />Add rule</Button>
     </div>
   );
