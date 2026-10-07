@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarDays, ImageIcon, LayoutDashboard, LogOut, PlusCircle } from "lucide-react";
+import { CalendarDays, ImageIcon, LayoutDashboard, LogOut, PlusCircle, ListOrdered } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useProfile } from "@/lib/trades";
@@ -22,6 +22,7 @@ const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/log", label: "Screenshot log", icon: ImageIcon },
   { to: "/calendar", label: "Calendar", icon: CalendarDays },
+  { to: "/rules", label: "My rules", icon: ListOrdered },
 ] as const;
 
 function AppLayout() {
