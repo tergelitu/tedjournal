@@ -49,9 +49,9 @@ function AppLayout() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground data-[status=active]:bg-secondary data-[status=active]:text-primary"
+                className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground data-[status=active]:bg-primary/10 data-[status=active]:text-primary data-[status=active]:shadow-[inset_0_0_0_1px_theme(colors.primary/25%)]"
               >
-                <item.icon className="size-4" />
+                <item.icon className="size-4" strokeWidth={1.75} />
                 {item.label}
               </Link>
             ))}
