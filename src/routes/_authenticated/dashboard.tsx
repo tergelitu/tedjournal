@@ -40,10 +40,10 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
         content: "Pip-first performance dashboard: win rate, net pips and pair breakdown.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/dashboard" },
+      { property: "og:url", content: "http://localhost:8080/dashboard" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/dashboard" }],
+    links: [{ rel: "canonical", href: "http://localhost:8080/dashboard" }],
   }),
   component: DashboardPage,
 });

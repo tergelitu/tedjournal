@@ -29,10 +29,10 @@ export const Route = createFileRoute("/_authenticated/log")({
         content: "Browse your trade screenshots with pair, session, pips and outcome.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/log" },
+      { property: "og:url", content: "http://localhost:8080/log" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/log" }],
+    links: [{ rel: "canonical", href: "http://localhost:8080/log" }],
   }),
   component: LogPage,
 });

@@ -5,7 +5,6 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,10 +21,10 @@ export const Route = createFileRoute("/")({
         content: "Screenshot-first trade logging with pip-focused stats, calendar and dashboard.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/" },
+      { property: "og:url", content: "http://localhost:8080/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/" }],
+    links: [{ rel: "canonical", href: "http://localhost:8080/" }],
   }),
   component: SignInPage,
 });
@@ -49,16 +48,14 @@ function SignInPage() {
 
   async function signIn() {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
     });
-    if (result.error) {
+    if (error) {
       setLoading(false);
       toast.error("Sign in failed. Please try again.");
-      return;
     }
-    if (result.redirected) return;
-    navigate({ to: "/journal", replace: true });
   }
 
   return (
@@ -66,9 +63,6 @@ function SignInPage() {
       <div className="w-full max-w-md text-center">
         <p className="num text-xs uppercase tracking-[0.3em] text-primary">Trade with clarity</p>
         <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">TedJournal</h1>
-        <p className="mx-auto mt-4 max-w-sm text-sm leading-6 text-muted-foreground sm:text-base">
-          A private, pip-first record of every setup, result, and lesson.
-        </p>
         <div className="mt-8 flex justify-center">
           <Button size="lg" onClick={signIn} disabled={loading || checking} className="min-w-56">
             {loading || checking ? <Loader2 className="animate-spin" /> : <GoogleMark />}

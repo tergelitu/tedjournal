@@ -38,10 +38,10 @@ export const Route = createFileRoute("/_authenticated/journal")({
         content: "Screenshot first, then pair, session, TP/SL pips, lot size and result.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/journal" },
+      { property: "og:url", content: "http://localhost:8080/journal" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/journal" }],
+    links: [{ rel: "canonical", href: "http://localhost:8080/journal" }],
   }),
   component: NewTradePage,
 });

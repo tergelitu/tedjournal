@@ -30,10 +30,10 @@ export const Route = createFileRoute("/_authenticated/calendar")({
         content: "See each trading day's count, win rate and net pips at a glance.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trade-tales-cyan.lovable.app/calendar" },
+      { property: "og:url", content: "http://localhost:8080/calendar" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://trade-tales-cyan.lovable.app/calendar" }],
+    links: [{ rel: "canonical", href: "http://localhost:8080/calendar" }],
   }),
   component: CalendarPage,
 });
